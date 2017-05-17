@@ -1,32 +1,23 @@
 
 # Load CSV file
-from parsing.csv_parser import CSVParser
-from parsing.folders import FolderIO
+from collections import Counter
 
-csv_files = FolderIO.get_files('data/', False, '.csv')
-csv_rows = CSVParser.parse_files_into_csv_row_generator(csv_files, False)
+# Load input CSV file
+import DataLoading
 
-pk_tweet_data_tuples = []
-tweet_categories = []
+# Load input CSV file
+import DataParsing
 
-for index, csv_row in enumerate(csv_rows):
-    if index != 0:
-        pk = csv_row[0]
-        tweet = csv_row[1]
-        data = csv_row[2:]
+pk_tweet_data_tuples , tweet_categories = DataLoading.load_raw_data()
 
-        pk_tweet_data_tuples.append((pk, tweet, data))
-    else:
-        tweet_categories = csv_row[2:]
+# Filter data with less than 100 instances
+x_y_tuples = DataParsing.transform_raw_data_to_binary_data(pk_tweet_data_tuples, tweet_categories)
 
+for category, (X, Y) in x_y_tuples.items():
+    print("{}: {} instances - {}".format(category, len(X), Counter(Y)))
 
-labels = {}
-for index, tweet_category in enumerate(tweet_categories):
-    print("Constructing data for {}".format(tweet_category))
-    labels[tweet_category] = [ 1 if int(data[index]) > 0 else 0 for pk, tweet, data in pk_tweet_data_tuples]
+# Filter
 
-for category, data in labels.items():
-    print("{} - {} instances - {}".format(category, len(data)))
 
 
 
