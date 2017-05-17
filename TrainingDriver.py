@@ -16,6 +16,7 @@ import DataLoading
 # Load input CSV file
 import DataParsing
 import DataPreprocessing
+import ModelTraining
 
 
 def print_dataset(x_y_tuples):
@@ -44,31 +45,9 @@ for category, (X, Y) in x_y_tuples.items():
 
 print_dataset(x_y_tuples)
 
+# Train models on entire dataset
+models = ModelTraining.train_model_for_each_category(x_y_tuples, verbose=True)
 
-classification_pipeline = Pipeline(
-    [
-        ('vect', CountVectorizer()),
-        ('tfidf', TfidfTransformer()),
-        ('clf', MultinomialNB())
-    ]
-)
 
-for category, (X,Y) in x_y_tuples.items():
-    X_train = X
-    Y_train = Y
-    X_test = X
-    Y_test = Y
 
-    # X_train_counts = CountVectorizer().fit_transform(X_train)
 
-    model = classification_pipeline.fit(X_train, Y_train)
-    predicted = model.predict(X_test)
-    print("\n\n")
-    print(category)
-
-    try:
-        print(metrics.classification_report(Y_train, predicted))
-        print(metrics.confusion_matrix(Y_train, predicted))
-    except Exception as e:
-        # print(e)
-        pass
