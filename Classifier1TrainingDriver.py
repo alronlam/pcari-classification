@@ -4,8 +4,10 @@ from collections import Counter
 
 # Load input CSV file
 import numpy
+import pickle
 from imblearn.under_sampling import RandomUnderSampler
 from sklearn import metrics
+from sklearn.externals import joblib
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.pipeline import Pipeline
@@ -24,7 +26,6 @@ def print_dataset(x_y_tuples):
     for category, (X, Y) in x_y_tuples.items():
         print("{}: {} instances - {}".format(category, len(X), Counter(Y)))
         print("Sample X: {}".format(X[0]))
-
 
 
 pk_tweet_data_tuples , tweet_categories = DataLoading.load_raw_data()
@@ -51,4 +52,4 @@ category_model_tuples = ModelTraining.train_model_for_each_category(x_y_tuples, 
 for category, model in category_model_tuples:
     print(category)
 
-
+joblib.dump(category_model_tuples, "category_model_tuples.pickle")
