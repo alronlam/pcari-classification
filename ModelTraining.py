@@ -13,8 +13,6 @@ def train_one_model(X, Y):
         ]
     )
 
-
-
     return classification_pipeline.fit(X,Y)
 
 def train_model_for_each_category(x_y_tuples, verbose=False):
