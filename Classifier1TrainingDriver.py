@@ -46,8 +46,9 @@ for category, (X, Y) in x_y_tuples.items():
 print_dataset(x_y_tuples)
 
 # Train models on entire dataset
-models = ModelTraining.train_model_for_each_category(x_y_tuples, verbose=True)
+category_model_tuples = ModelTraining.train_model_for_each_category(x_y_tuples, verbose=True)
 
-
+for category, model in category_model_tuples:
+    print(category)
 
 
