@@ -17,7 +17,7 @@ def print_dataset(x_y_tuples):
     print()
     for category, (X, Y) in x_y_tuples.items():
         print("{}: {} instances - {}".format(category, len(X), Counter(Y)))
-        print("Sample X: {}".format(X[0]))
+        # print("Sample X: {}".format(X[0]))
 
 
 pk_tweet_data_tuples , tweet_categories = DataLoading.load_raw_data()
