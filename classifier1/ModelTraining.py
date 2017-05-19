@@ -16,15 +16,17 @@ def train_one_model(X, Y):
     return classification_pipeline.fit(X,Y)
 
 def train_model_for_each_category(x_y_tuples, verbose=False):
-    models = []
+    category_model_tuples = []
 
     for category, (X, Y) in x_y_tuples.items():
         model = train_one_model(X,Y)
-        models.append(model)
+        category_model_tuples.append((category,model))
         if verbose:
             print("\n")
             print(category)
             print_model_training_accuracy(model, X, Y)
+
+    return category_model_tuples
 
 
 def print_model_training_accuracy(model, X_test, Y_test):

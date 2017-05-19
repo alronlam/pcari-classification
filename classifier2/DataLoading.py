@@ -1,7 +1,7 @@
 from parsing.csv_parser import CSVParser
 from parsing.folders import FolderIO
 
-def load_raw_data(folder_path="data/classifier1_training_data"):
+def load_data_with_months(folder_path="../data/classifier2_training_data"):
     csv_files = FolderIO.get_files(folder_path, False, '.csv')
     csv_rows = CSVParser.parse_files_into_csv_row_generator(csv_files, False)
 

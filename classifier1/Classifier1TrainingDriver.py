@@ -4,21 +4,13 @@ from collections import Counter
 
 # Load input CSV file
 import numpy
-import pickle
 from imblearn.under_sampling import RandomUnderSampler
-from sklearn import metrics
 from sklearn.externals import joblib
-from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
-from sklearn.naive_bayes import MultinomialNB
-from sklearn.pipeline import Pipeline
-from sklearn.utils.validation import _num_samples
 
-import DataLoading
+from classifier1 import DataLoading, ModelTraining, DataPreprocessing, DataParsing
+
 
 # Load input CSV file
-import DataParsing
-import DataPreprocessing
-import ModelTraining
 
 
 def print_dataset(x_y_tuples):
