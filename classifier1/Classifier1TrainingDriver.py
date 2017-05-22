@@ -1,5 +1,6 @@
 
 # Load CSV file
+import os
 from collections import Counter
 
 # Load input CSV file
@@ -7,6 +8,7 @@ import numpy
 from imblearn.under_sampling import RandomUnderSampler
 from sklearn.externals import joblib
 
+import Settings
 from classifier1 import DataLoading, ModelTraining, DataPreprocessing, DataParsing
 
 
@@ -43,5 +45,6 @@ category_model_tuples = ModelTraining.train_model_for_each_category(x_y_tuples, 
 
 for category, model in category_model_tuples:
     print(category)
+    joblib.dump(model, os.path.join(Settings.PROJECT_ROOT, "{}_model.pickle".format(category)))
 
 joblib.dump(category_model_tuples, "category_model_tuples.pickle")
