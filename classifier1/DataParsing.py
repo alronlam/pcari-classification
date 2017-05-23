@@ -24,6 +24,7 @@ STANDARD_PREPROCESSORS = [
     PreProcessing.ReplaceURL(),
     PreProcessing.ReplaceUsernameMention(),
     PreProcessing.RemovePunctuationFromWords(),
+    PreProcessing.RemoveLetterRepetitions(),
     PreProcessing.ConcatWordArray()
 ]
 
