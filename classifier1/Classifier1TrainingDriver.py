@@ -29,7 +29,6 @@ x_y_tuples = DataParsing.transform_raw_data_to_binary_data(pk_tweet_data_tuples,
 
 # Filter data with less than 100 instances
 x_y_tuples = DataPreprocessing.remove_categories_with_less_than_n(x_y_tuples, 100)
-print_dataset(x_y_tuples)
 
 # Undersample
 rus = RandomUnderSampler(return_indices=False)
@@ -37,6 +36,10 @@ for category, (X, Y) in x_y_tuples.items():
     X_undersampled, Y_undersampled = rus.fit_sample(numpy.reshape(X, (len(X), 1)),Y)
     X_undersampled = [x[0] for x in X_undersampled]
     x_y_tuples[category] = (X_undersampled, Y_undersampled)
+
+
+# Pre-process
+x_y_tuples = DataParsing.standard_preprocess_tweets(x_y_tuples)
 
 
 print_dataset(x_y_tuples)

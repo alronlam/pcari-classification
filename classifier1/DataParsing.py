@@ -1,3 +1,6 @@
+from preprocessing import PreProcessing
+
+
 def transform_raw_data_to_binary_data(pk_tweet_data_tuples, tweet_categories):
     # construct binary list (1/0) for each category
     labels = {}
@@ -13,3 +16,23 @@ def transform_raw_data_to_binary_data(pk_tweet_data_tuples, tweet_categories):
         x_y_tuples[category] = (tweet_list.copy(),data)
 
     return x_y_tuples
+
+def standard_preprocess_tweets(x_y_tuples):
+
+    preprocessed_x_y_tuples = {}
+
+    for category, (X, Y) in x_y_tuples.items():
+        preprocessors = [
+            PreProcessing.SplitWordByWhitespace(),
+            PreProcessing.WordToLowercase(),
+            PreProcessing.RemoveRT(),
+            PreProcessing.ReplaceURL(),
+            PreProcessing.ReplaceUsernameMention(),
+            PreProcessing.RemovePunctuationFromWords(),
+            PreProcessing.ConcatWordArray()
+        ]
+        preprocessed_X = PreProcessing.preprocess_strings(X, preprocessors)
+
+        preprocessed_x_y_tuples[category] = (preprocessed_X, Y)
+
+    return preprocessed_x_y_tuples
