@@ -17,22 +17,26 @@ def transform_raw_data_to_binary_data(pk_tweet_data_tuples, tweet_categories):
 
     return x_y_tuples
 
-def standard_preprocess_tweets(x_y_tuples):
+STANDARD_PREPROCESSORS = [
+    PreProcessing.SplitWordByWhitespace(),
+    PreProcessing.WordToLowercase(),
+    PreProcessing.RemoveRT(),
+    PreProcessing.ReplaceURL(),
+    PreProcessing.ReplaceUsernameMention(),
+    PreProcessing.RemovePunctuationFromWords(),
+    PreProcessing.ConcatWordArray()
+]
+
+def standard_preprocess_x_y_tuples(x_y_tuples):
 
     preprocessed_x_y_tuples = {}
 
     for category, (X, Y) in x_y_tuples.items():
-        preprocessors = [
-            PreProcessing.SplitWordByWhitespace(),
-            PreProcessing.WordToLowercase(),
-            PreProcessing.RemoveRT(),
-            PreProcessing.ReplaceURL(),
-            PreProcessing.ReplaceUsernameMention(),
-            PreProcessing.RemovePunctuationFromWords(),
-            PreProcessing.ConcatWordArray()
-        ]
-        preprocessed_X = PreProcessing.preprocess_strings(X, preprocessors)
+        preprocessed_X = PreProcessing.preprocess_strings(X, STANDARD_PREPROCESSORS)
 
         preprocessed_x_y_tuples[category] = (preprocessed_X, Y)
 
     return preprocessed_x_y_tuples
+
+def standard_preprocess_tweet_strings(strings):
+    return PreProcessing.preprocess_strings(strings, STANDARD_PREPROCESSORS)

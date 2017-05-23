@@ -39,7 +39,7 @@ for category, (X, Y) in x_y_tuples.items():
 
 
 # Pre-process
-x_y_tuples = DataParsing.standard_preprocess_tweets(x_y_tuples)
+x_y_tuples = DataParsing.standard_preprocess_x_y_tuples(x_y_tuples)
 
 
 print_dataset(x_y_tuples)
