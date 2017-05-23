@@ -9,6 +9,7 @@ from imblearn.under_sampling import RandomUnderSampler
 from sklearn.externals import joblib
 
 import Settings
+import Utils
 from classifier1 import DataLoading, ModelTraining, DataPreprocessing, DataParsing
 
 
@@ -41,10 +42,10 @@ for category, (X, Y) in x_y_tuples.items():
 print_dataset(x_y_tuples)
 
 # Train models on entire dataset
-category_model_tuples = ModelTraining.train_model_for_each_category(x_y_tuples, verbose=True)
+print_file = open(Utils.construct_path_from_project_root("models/models_performance.txt"), "w")
+category_model_tuples = ModelTraining.train_model_for_each_category(x_y_tuples, verbose=True, print_file=print_file)
 
 for category, model in category_model_tuples:
-    print(category)
-    joblib.dump(model, os.path.join(Settings.PROJECT_ROOT, "{}_model.pickle".format(category)))
+    joblib.dump(model, Utils.construct_path_from_project_root("models/{}_model.pickle".format(category)))
 
-joblib.dump(category_model_tuples, "category_model_tuples.pickle")
+joblib.dump(category_model_tuples, Utils.construct_path_from_project_root("models/category_model_tuples.pickle"))
