@@ -7,23 +7,11 @@ import os
 from sklearn.externals import joblib
 
 import Utils
-from classifier1 import DataParsing
+from classifier1 import DataParsing, DataLoading
 from parsing.folders import FolderIO
 
 
-def load_full_dataset_per_month():
-    files = FolderIO.get_files(Utils.construct_path_from_project_root('data/yolanda_tweets_nov2013_feb2014'), False, '.txt')
 
-    data_per_month = []
-
-    # Files are assumed to be ordered sequentially
-    for index, file in enumerate(files):
-        with open(file.absolute().__str__(), encoding='utf-8') as txt_file:
-            file_lines = txt_file.readlines()
-            file_lines = [line.strip() for line in file_lines]
-            data_per_month.append(file_lines)
-
-    return data_per_month
 
 def classify_on_dataset(model_file_names, months_to_classify_per_model, data_per_month):
 
@@ -82,7 +70,7 @@ months = [
 ###         Driver Code        ###
 ##################################
 
-data_per_month = load_full_dataset_per_month()
+data_per_month = DataLoading.load_full_dataset_per_month()
 
 classifications = classify_on_dataset(model_file_names, months, data_per_month)
 
