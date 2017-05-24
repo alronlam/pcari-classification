@@ -1,6 +1,7 @@
 .idea/
 data/
 models/
+models2/
 __pycache__/
 **.pyc
 **.pickle
