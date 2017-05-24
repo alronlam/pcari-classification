@@ -1,6 +1,9 @@
 ##################################
 ###          Functions         ###
 ##################################
+import csv
+import os
+
 from sklearn.externals import joblib
 
 import Utils
@@ -42,7 +45,20 @@ def classify_on_dataset(model_file_names, months_to_classify_per_model, data_per
 
     return all_results
 
+def generate_csv(classification_results, data_per_month, output_dir=Utils.construct_path_from_project_root('data/weak_annotations')):
+    header_data = []
+    for file_name, month_values in classification_results.items():
 
+        csv_file_name = os.path.join(output_dir, file_name+".csv")
+        with open(csv_file_name, 'w', encoding='utf-8', newline='') as csv_file:
+
+            csv_writer = csv.writer(csv_file)
+            csv_writer.writerow(['tweet', 'month', 'classification'])
+
+            for month, values in month_values.items():
+                for index, value in enumerate(values):
+                    tweet = data_per_month[month][index]
+                    csv_writer.writerow([tweet, month, value])
 
 
 ##################################
@@ -69,3 +85,5 @@ months = [
 data_per_month = load_full_dataset_per_month()
 
 classifications = classify_on_dataset(model_file_names, months, data_per_month)
+
+generate_csv(classifications, data_per_month)
