@@ -2,8 +2,8 @@ from itertools import chain
 import csv
 import os
 
-def parse_file_into_csv_row_generator(file, ignore_first_row):
-    with open(file.absolute().__str__(), newline='') as csv_file:
+def parse_file_into_csv_row_generator(file, ignore_first_row, encoding='charmap'):
+    with open(file.absolute().__str__(), newline='', encoding=encoding) as csv_file:
         row_reader = csv.reader(csv_file, delimiter=',')
         generator = iterator_wrapper(row_reader)
         if ignore_first_row:

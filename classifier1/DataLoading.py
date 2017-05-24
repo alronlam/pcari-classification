@@ -1,3 +1,6 @@
+import csv
+
+import Utils
 from parsing.csv_parser import CSVParser
 from parsing.folders import FolderIO
 
@@ -41,3 +44,26 @@ def load_raw_data_with_months(folder_path="../data"):
             tweet_categories = csv_row[3:]
 
     return pk_tweet_data_month_tuples, tweet_categories
+
+def load_weak_annotations_binary_data(folder_path=Utils.construct_path_from_project_root('data/weak_annotations')):
+    csv_file_paths = FolderIO.get_files(folder_path, False, '.csv')
+
+    x_y_tuples = {}
+
+    for csv_file_path in csv_file_paths:
+
+        csv_row_generator = CSVParser.parse_file_into_csv_row_generator(csv_file_path, True, encoding='utf-8')
+        curr_X = [row[0] for row in csv_row_generator]
+
+        csv_row_generator = CSVParser.parse_file_into_csv_row_generator(csv_file_path, True, encoding='utf-8')
+        curr_Y = [int(row[2]) for row in csv_row_generator]
+
+        category = csv_file_path.stem
+
+        x_y_tuples[category] = (curr_X, curr_Y)
+
+    return x_y_tuples
+
+
+
+
