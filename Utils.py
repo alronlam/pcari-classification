@@ -54,7 +54,7 @@ def classify_on_dataset(model_file_names, months_to_classify_per_model, data_per
 
     return all_results
 
-def generate_csv(classification_results, data_per_month, output_dir=Utils.construct_path_from_project_root('data/weak_annotations')):
+def generate_csv(classification_results, data_per_month, output_dir=construct_path_from_project_root('data/weak_annotations')):
     header_data = []
     for file_name, month_values in classification_results.items():
 
