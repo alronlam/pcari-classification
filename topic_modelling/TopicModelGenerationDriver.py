@@ -44,7 +44,7 @@ for file in files:
         PreProcessing.ConcatWordArray()
     ]
     positive_texts = PreProcessing.preprocess_strings(positive_texts, preprocessors)
-
+    print("{} tweets".format(len(positive_texts)))
     topic_model, topic_model_string = lda_topic_modeller.generate_topic_models_and_string(positive_texts)
 
 
