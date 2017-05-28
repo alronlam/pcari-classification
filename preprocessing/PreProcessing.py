@@ -122,6 +122,14 @@ class RemoveEmptyStrings(PreProcessor):
     def preprocess_text(self, text_words):
         return [word for word in text_words if word.strip()]
 
+class RemoveDigits(PreProcessor):
+    def __init__(self):
+        self.replacement_token = ""
+        self.regex = re.compile(r"[0-9]+")
+
+    def preprocess_text(self, text_words):
+        return [self.regex.sub(self.replacement_token, word) for word in text_words]
+
 def preprocess_strings(strings, preprocessors):
     preprocessed_tweets = []
     for tweet in strings:

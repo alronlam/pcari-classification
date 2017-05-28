@@ -36,8 +36,10 @@ for file in files:
         PreProcessing.ReplaceUsernameMention(replacement_token=""),
         PreProcessing.RemovePunctuationFromWords(),
         PreProcessing.RemoveLetterRepetitions(),
-        PreProcessing.RemoveExactTerms(['…', '”', '“', 'haiyan', 'yolanda', 'quot', 'typhoon', 'yolandaph', 'amp', '’', 'apos']),
+        PreProcessing.RemoveExactTerms(['…', '”', '“', 'haiyan', 'yolanda', 'quot', 'typhoon', 'yolandaph', 'amp', '’', 'apos', 'haha', 'hahaha']),
         PreProcessing.RemoveExactTerms(Utils.load_function_words(Utils.construct_path_from_project_root('preprocessing/fil-function-words.txt'))),
+        PreProcessing.RemoveDigits(),
+        PreProcessing.WordLengthFilter(3),
         PreProcessing.RemoveEmptyStrings(),
         PreProcessing.ConcatWordArray()
     ]
