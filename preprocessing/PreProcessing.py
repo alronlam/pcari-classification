@@ -118,6 +118,10 @@ class RemoveExactTerms(PreProcessor):
                 new_array.append(word)
         return new_array
 
+class RemoveEmptyStrings(PreProcessor):
+    def preprocess_text(self, text_words):
+        return [word for word in text_words if word.strip()]
+
 def preprocess_strings(strings, preprocessors):
     preprocessed_tweets = []
     for tweet in strings:
