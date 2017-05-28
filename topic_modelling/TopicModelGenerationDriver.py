@@ -36,7 +36,8 @@ for file in files:
         PreProcessing.ReplaceUsernameMention(replacement_token=""),
         PreProcessing.RemovePunctuationFromWords(),
         PreProcessing.RemoveLetterRepetitions(),
-        PreProcessing.RemoveExactTerms(['…']),
+        PreProcessing.RemoveExactTerms(['…', '”', '“', 'haiyan', 'yolanda', 'quot', 'typhoon', 'yolandaph']),
+        PreProcessing.RemoveExactTerms(Utils.load_function_words(Utils.construct_path_from_project_root('preprocessing/fil-function-words.txt'))),
         PreProcessing.RemoveEmptyStrings(),
         PreProcessing.ConcatWordArray()
     ]
@@ -48,9 +49,11 @@ for file in files:
     # save output (pickle + readable txt format)
     topic_model_file = open(os.path.join(YOLANDA_TOPIC_MODELS_DIR, category+".pickle"), "wb")
     pickle.dump(topic_model, topic_model_file)
+    topic_model_file.close()
 
     topic_model_string_file = open(os.path.join(YOLANDA_TOPIC_MODELS_DIR, category+".txt"), "w", encoding='utf-8')
     topic_model_string_file.write(topic_model_string)
+    topic_model_string_file.close()
 
 
 

@@ -70,3 +70,7 @@ def generate_csv(classification_results, data_per_month, output_dir=construct_pa
                     csv_writer.writerow([tweet, month, value])
 
 
+def load_function_words(path):
+    with open(path, "r") as function_words_file:
+        words = [word.strip() for word in function_words_file.readlines()]
+    return words
