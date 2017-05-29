@@ -33,6 +33,6 @@ months = [
 
 data_per_month = DataLoading.load_full_dataset_per_month()
 
-classifications = Utils.classify_on_dataset(model_file_names, months, data_per_month)
+classifications = Utils.classify_on_yolanda_dataset_per_month(model_file_names, months, data_per_month)
 
-Utils.generate_csv(classifications, data_per_month)
+Utils.generate_csv_per_month(classifications, data_per_month)

@@ -79,3 +79,9 @@ def load_full_dataset_per_month():
     return data_per_month
 
 
+def load_lawin_tweets():
+    files = FolderIO.get_files(Utils.construct_path_from_project_root('data/lawin_tweets'), False, '.csv')
+
+    csv_rows = CSVParser.parse_files_into_csv_row_generator(files, False)
+
+    return [csv_row[1] for csv_row in csv_rows]

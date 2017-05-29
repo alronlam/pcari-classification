@@ -2,19 +2,33 @@ import Utils
 from classifier1 import DataLoading
 
 model_file_names = ['Agonism or Engagement in Debate_model.pickle',
-          'Celebrification_model.pickle',
-          'Solidaristic_model.pickle',
-          'Tweeting about a charity event (run, cookfest, walk, etc)_model.pickle']
+              'Celebrification_model.pickle',
+              'Solidaristic_model.pickle',
+              'Tweeting about a charity event (run, cookfest, walk, etc)_model.pickle']
 
-months = [
-    [0,1,2,3],
-    [0,1,2,3],
-    [0,1,2,3],
-    [0,1,2,3]
-]
+def classify_yolanda_tweets():
 
-data_per_month = DataLoading.load_full_dataset_per_month()
+    months = [
+        [0,1,2,3],
+        [0,1,2,3],
+        [0,1,2,3],
+        [0,1,2,3]
+    ]
 
-classifications = Utils.classify_on_dataset(model_file_names, months, data_per_month)
+    data_per_month = DataLoading.load_full_dataset_per_month()
 
-Utils.generate_csv(classifications, data_per_month, output_dir=Utils.construct_path_from_project_root('data/final_classifications'))
+    classifications = Utils.classify_on_yolanda_dataset_per_month(model_file_names, months, data_per_month)
+
+    Utils.generate_csv_per_month(classifications, data_per_month, output_dir=Utils.construct_path_from_project_root('data/final_classifications'))
+
+def classify_lawin_tweets():
+    lawin_data = DataLoading.load_lawin_tweets()
+
+    classifications = Utils.classify_on_dataset(model_file_names, lawin_data)
+
+    Utils.generate_csv(classifications, lawin_data, output_dir=Utils.construct_path_from_project_root('data/final_classifications_lawin'))
+
+
+
+# classify_yolanda_tweets()
+classify_lawin_tweets()
