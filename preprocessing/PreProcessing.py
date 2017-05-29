@@ -135,7 +135,8 @@ def preprocess_strings(strings, preprocessors):
     for tweet in strings:
         for preprocessor in preprocessors:
             tweet = preprocessor.preprocess_text(tweet)
-        preprocessed_tweets.append(tweet)
+        if tweet.strip():
+            preprocessed_tweets.append(tweet.strip())
     return preprocessed_tweets
 
 def preprocess_tweets(tweets, preprocessors):
