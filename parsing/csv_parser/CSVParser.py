@@ -23,8 +23,8 @@ def iterator_wrapper(generator):
           print(e) # or whatever kind of logging you want
           pass
 
-def parse_files_into_csv_row_generator(files, ignore_first_row):
+def parse_files_into_csv_row_generator(files, ignore_first_row, encoding='charmap'):
     generator = iter(())
     for file in files:
-        generator = chain(generator, parse_file_into_csv_row_generator(file, ignore_first_row))
+        generator = chain(generator, parse_file_into_csv_row_generator(file, ignore_first_row, encoding=encoding))
     return generator

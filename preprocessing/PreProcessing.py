@@ -39,9 +39,12 @@ class SplitWordByWhitespace(PreProcessor):
 
 class RemovePunctuationFromWords(PreProcessor):
 
-    def __init__(self):
+    def __init__(self, remove_all=False):
         # Do not remove the special tokens (# - hashtag, @ - username, <> - URL/Username replacement)
-        self.translator = str.maketrans({key: " " for key in string.punctuation if key != "#" and key != "@" and key !="<" and key != ">"})
+        if remove_all:
+            self.translator = str.maketrans({key: " " for key in string.punctuation})
+        else:
+            self.translator = str.maketrans({key: " " for key in string.punctuation if key != "#" and key != "@" and key !="<" and key != ">"})
 
     def preprocess_text(self, tweet_words):
         removed_punctuations = [word.translate(self.translator) for word in tweet_words ]
@@ -139,6 +142,14 @@ class Lemmatize(PreProcessor):
 
     def preprocess_text(self, text_words):
         return [self.lemma.lemmatize(word) for word in text_words]
+
+class RemoveNonAlphabet(PreProcessor):
+
+    def __init__(self):
+        self.regex = re.compile('[^a-zA-Z]*')
+
+    def preprocess_text(self, text_words):
+        return [self.regex.sub('', word)for word in text_words]
 
 def preprocess_strings(strings, preprocessors):
     preprocessed_tweets = []
