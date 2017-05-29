@@ -44,6 +44,7 @@ def run_topic_modelling(dir):
             PreProcessing.RemoveExactTerms(Utils.load_function_words(Utils.construct_path_from_project_root('preprocessing/other-function-words.txt'), encoding='utf-8')),
             PreProcessing.RemoveExactTerms(Utils.load_function_words(Utils.construct_path_from_project_root('preprocessing/fil-function-words.txt'))),
             PreProcessing.RemoveDigits(),
+            PreProcessing.Lemmatize(),
             PreProcessing.WordLengthFilter(3),
             PreProcessing.RemoveEmptyStrings(),
             PreProcessing.ConcatWordArray()

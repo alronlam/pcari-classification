@@ -4,6 +4,9 @@ import string
 
 import re
 
+from nltk import WordNetLemmatizer
+
+
 class PreProcessor(object):
 
     @abc.abstractmethod
@@ -129,6 +132,13 @@ class RemoveDigits(PreProcessor):
 
     def preprocess_text(self, text_words):
         return [self.regex.sub(self.replacement_token, word) for word in text_words]
+
+class Lemmatize(PreProcessor):
+    def __init__(self):
+        self.lemma = WordNetLemmatizer()
+
+    def preprocess_text(self, text_words):
+        return [self.lemma.lemmatize(word) for word in text_words]
 
 def preprocess_strings(strings, preprocessors):
     preprocessed_tweets = []
